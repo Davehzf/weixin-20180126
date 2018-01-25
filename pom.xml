@@ -1,0 +1,193 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.mofancn</groupId>
+    <artifactId>parent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <groupId>com.mofancn</groupId>
+  <artifactId>weixin</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>war</packaging>
+  <repositories>
+		<repository>
+			<id>alimaven</id>
+			<name>aliyun maven</name>
+			<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+		</repository>
+	</repositories>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<version.spring>3.2.9.RELEASE</version.spring>
+		<version.jackson>2.4.4</version.jackson>
+	</properties>
+
+	<dependencies>
+
+		<!-- swagger-mvc -->
+		<dependency>
+			<groupId>com.mofancn</groupId>
+			<artifactId>manager-mapper</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<!-- 跨域 -->
+		<!-- https://mvnrepository.com/artifact/com.thetransactioncompany/cors-filter -->
+		<dependency>
+			<groupId>com.thetransactioncompany</groupId>
+			<artifactId>cors-filter</artifactId>
+			<version>2.6</version>
+		</dependency>
+
+		<!-- Spring -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jsp-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<!-- Redis客户端 -->
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+
+		</dependency>
+		<dependency>
+			<groupId>org.apache.solr</groupId>
+			<artifactId>solr-solrj</artifactId>
+
+		</dependency>
+		
+
+		<!-- Swagger -->
+		<dependency>
+			<groupId>com.mangofactory</groupId>
+			<artifactId>swagger-springmvc</artifactId>
+			<version>0.9.5</version>
+		</dependency>
+		<!-- JSON -->
+		<dependency>
+			<groupId>net.sf.json-lib</groupId>
+			<artifactId>json-lib</artifactId>
+			<version>2.4</version>
+			<classifier>jdk15</classifier>
+		</dependency>
+		<!-- JACKSON -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>${version.jackson}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${version.jackson}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>${version.jackson}</version>
+		</dependency>
+
+
+
+
+
+	</dependencies>
+	<build>
+		<!-- 配置插件 -->
+		<plugins>
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<configuration>
+					<port>8090</port>
+					<path>/</path>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<configuration>
+					<charset>UTF-8</charset>
+					<docencoding>UTF-8</docencoding>
+					<failOnError>false</failOnError>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>com.github.kongchen</groupId>
+				<artifactId>swagger-maven-plugin</artifactId>
+				<configuration>
+					<apiSources>
+						<apiSource>
+							<springmvc>true</springmvc>
+							<locations>com.mofancn.sso</locations>
+							<schemes>http,https</schemes>
+							<host>localhost:8090</host>
+							<basePath>/user</basePath>
+							<info>
+								<title>Swagger Maven Plugin Sample</title>
+								<version>v1</version>
+								<description>This is a sample for swagger-maven-plugin</description>
+								<termsOfService>
+									http://www.github.com/kongchen/swagger-maven-plugin
+								</termsOfService>
+								<contact>
+									<email>kongchen@gmail.com</email>
+									<name>Kong Chen</name>
+									<url>http://sso.mofancn.com</url>
+								</contact>
+								<license>
+									<url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+									<name>Apache 2.0</name>
+								</license>
+							</info>
+							Support classpath or file absolute path here. 1) classpath e.g:
+							"classpath:/markdown.hbs", "classpath:/templates/hello.html" 2)
+							file e.g: "${basedir}/src/main/resources/markdown.hbs",
+							"${basedir}/src/main/resources/template/hello.html"
+							<templatePath>${basedir}/templates/strapdown.html.hbs</templatePath>
+							<outputPath>${basedir}/src/main/webapp/WEB-INF/swagger/generated/document.html</outputPath>
+							<swaggerDirectory>${basedir}/src/main/webapp/WEB-INF/swagger</swaggerDirectory>
+						</apiSource>
+					</apiSources>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+		<finalName>weixin</finalName>
+	</build>
+  
+</project>
