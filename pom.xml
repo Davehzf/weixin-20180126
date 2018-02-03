@@ -125,7 +125,7 @@
 				<groupId>org.apache.tomcat.maven</groupId>
 				<artifactId>tomcat7-maven-plugin</artifactId>
 				<configuration>
-					<port>8090</port>
+					<port>80</port>
 					<path>/</path>
 				</configuration>
 			</plugin>
@@ -148,7 +148,7 @@
 							<springmvc>true</springmvc>
 							<locations>com.mofancn.sso</locations>
 							<schemes>http,https</schemes>
-							<host>localhost:8090</host>
+							<host>localhost:80</host>
 							<basePath>/user</basePath>
 							<info>
 								<title>Swagger Maven Plugin Sample</title>

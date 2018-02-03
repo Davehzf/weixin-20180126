@@ -107,11 +107,12 @@ public class WeixinOauthController {
 		String getaccesstoken = HttpClientUtil.doGet(url);
 		
 		String url2 = "http://weixin.mofancn.com/weixin/getjsapi_ticket";
-		String getjsapi_ticket = HttpClientUtil.doGet(url);
-		
-		
+		String getjsapi_ticket = HttpClientUtil.doGet(url2);
+		System.out.println("getaccesstoken:"+ getaccesstoken);
+		System.out.println("getjsapi_ticket:"+ getjsapi_ticket);
 		
 		String jsapi_ticket = jedisClient.get(JS_API_TICKET_KEY);
+		System.out.println("jsapi_ticket:"+ jsapi_ticket);
 /*		if (jsapi_ticket == null) {
 			String url = "http://localhost:8090/getjsapi_ticket";
 			String doget = HttpClientUtil.doGet(url);
